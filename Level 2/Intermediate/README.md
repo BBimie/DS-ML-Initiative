@@ -10,6 +10,12 @@ The World Happiness Report is a landmark survey of the state of global happiness
 - Folium, geopandas, country converter : Geospatial Analysis
 - Scikit learn: Data Modelling
 
+
+## Data
+The world happiness dataset can be found on kaggle [here](https://www.kaggle.com/unsdsn/world-happiness).
+
+The shape file used to create the map can be downloaded from [here](https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_admin_0_countries.zip)
+
 ## Data Analysis
 The data file contains 5 datasets 2015, 2016, 2017, 2018 and 2019. I merged all the datasets together to create a bigger dataset, and I performed my analysis on this.
 
