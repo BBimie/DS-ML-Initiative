@@ -27,6 +27,6 @@ I also did a geospatial analysis and realised that most of the countries with th
 
 ## Modelling
 
-The RandomForestRegressor model used had an MSE of 0.2 and R2 Score of 82.65%; on the test set. The RMSE score shows how little the margin of error of predictions is which is an excellent sign that the predictions are reliable.
+The RandomForestRegressor model used had an MSE of 0.2 and R2 Score of 82.65%; on the test set. The MSE score shows how little the margin of error of predictions is which is an excellent sign that the predictions are reliable.
 
 Go through the notebook to see more exciting stuff!👌
