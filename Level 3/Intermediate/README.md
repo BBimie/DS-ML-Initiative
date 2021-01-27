@@ -1,5 +1,5 @@
 # TIME SERIES FORECASTING WITH LSTM
-## Forecasting Future Petrol and Diesel PricesATA
+## Forecasting Future Petrol and Diesel Prices
 
 ### DATA
 The dataset used *wfp_food_prices_nigeria* contains monthly price information of different commodities in the different states in Nigeria. The focus of the project was on Diesel and Petrol prices. The monthly prices were extracted using the media price per month in all states.
