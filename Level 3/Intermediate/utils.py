@@ -55,7 +55,7 @@ def feature_target(lagged_data):
         x, y : feature and target
     """
     array = np.array(lagged_data)
-    x, y = array[:, 1:], array[:, 0:1]
+    x, y = array[:, 0:-1], array[:, -1:]
     x = x.reshape(x.shape[0], 1, x.shape[1])
     return x, y
 
@@ -64,7 +64,7 @@ def build_LSTM(x_train):
     Builds an LSTM model using keras. 
         Model components:
         - Seqential model
-        - LSTM layer with 50 units, input shape is the training data's shape
+        - LSTM layer with 50 units, with sequences returned, input shape is the training data's shape
         - 20% dropout layer to prevent overfitting
         - LSTM layer with 100 units and no sequences returned
         - another 20% dropout layer to prevent overfitting
@@ -76,15 +76,20 @@ def build_LSTM(x_train):
         model: LSTM model
     """
     model = Sequential()
-    model.add(LSTM(50, batch_input_shape=(1, x_train.shape[1], x_train.shape[2]), stateful=True, return_sequences=True))
-    model.add(Dropout(0.2))
+    model.add(LSTM(50, batch_input_shape=(1, x_train.shape[1], x_train.shape[2]), stateful=True, return_sequences=True)) #input layer
+    model.add(Dropout(0.2))  
     model.add(LSTM(100, return_sequences=False))
     model.add(Dropout(0.2))
-    model.add(Dense(1))
+    model.add(Dense(1))   #output
+    
     model.compile(loss='mean_squared_error', optimizer='rmsprop')
     return model
                               
-                         
+      
+def mean_absolute_percentage_error(y_true, y_pred): 
+    y_true, y_pred = np.array(y_true), np.array(y_pred)
+    return np.mean(np.abs((y_true - y_pred) / y_true)) * 100       
+        
 def forecast(num_prediction, model, past, look_back=1):
     """Forecasts future data
     INPUT:
@@ -95,13 +100,14 @@ def forecast(num_prediction, model, past, look_back=1):
     OUTPUT:
         forecast - scaled forecasted prices
     """  
-    forecast = past[-look_back:]
+    forecast = past[-look_back:]    #past[-1:]
     
     for _ in range(num_prediction):
         x = forecast[-look_back:]
         x = x.reshape((1, look_back, 1))
         out = model.predict(x)[0][0]
         forecast = np.append(forecast, out)
+        
     forecast = forecast[look_back-1:]
         
     return forecast
@@ -119,4 +125,13 @@ def forecast_dates(df, num_prediction, frequency = 'MS'):
     last_date = df.index.values[-1]
     forecast_dates = pd.date_range(last_date, periods=num_prediction+1, freq=frequency).tolist()
     return forecast_dates
-                              
+                             
+    
+    
+    
+    
+    
+    
+    
+    
+    
